@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CS3502-CPU_Scheduler_Console_App")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a0f91ff6c58162f0fecefce922ca47d771d147aa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f995c5ba24115b6678b7b92ef872abc04a2faca")]
 [assembly: System.Reflection.AssemblyProductAttribute("CS3502-CPU_Scheduler_Console_App")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CS3502-CPU_Scheduler_Console_App")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

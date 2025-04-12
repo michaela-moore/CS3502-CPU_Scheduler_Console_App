@@ -12,3 +12,4 @@ C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\refi
 C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.pdb
 C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.genruntimeconfig.cache
 C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\ref\CS3502-CPU_Scheduler_Console_App.dll
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.sourcelink.json
