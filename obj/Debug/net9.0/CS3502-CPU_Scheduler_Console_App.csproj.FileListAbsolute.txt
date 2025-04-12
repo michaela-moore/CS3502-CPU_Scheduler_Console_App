@@ -1,0 +1,14 @@
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\bin\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.exe
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\bin\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.deps.json
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\bin\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.runtimeconfig.json
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\bin\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.dll
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\bin\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.pdb
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.AssemblyInfoInputs.cache
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.AssemblyInfo.cs
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.csproj.CoreCompileInputs.cache
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.dll
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\refint\CS3502-CPU_Scheduler_Console_App.dll
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.pdb
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\CS3502-CPU_Scheduler_Console_App.genruntimeconfig.cache
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\obj\Debug\net9.0\ref\CS3502-CPU_Scheduler_Console_App.dll
