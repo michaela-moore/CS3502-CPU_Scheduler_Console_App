@@ -1,0 +1,23 @@
+
+
+
+
+
+
+Tests Cases Covered
+- List of Processes with BT & AT
+- List of Processes with only BT (default AT all 0)
+- List of Processes :
+-- 10 
+-- 100
+-- 1000
+-- 10000
+-- 50000
+-- Min BT 1 & Max BT 500
+
+Edge Cases 
+- All processes arrive at time 0 with identical burst times.
+- Random Priorities 
+- Extremely long burst times mixed with very short burst times.
+
+

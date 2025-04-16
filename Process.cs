@@ -1,7 +1,6 @@
 public class Process 
 {
-
-    readonly string processId;
+    readonly string _id;
     readonly int arrivalTime;
     readonly int burstTime;
     int remainingTime; //if preemptive (ie: SRTF)
@@ -9,23 +8,23 @@ public class Process
 
     
     public Process(string processId, int arrivalTime, int burstTime) {
-        this.processId = processId;
+        _id = processId;
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
     }
 
 
     public Process(string processId,  int burstTime) {
-        this.processId = processId;
+        _id = processId;
         this.burstTime = burstTime;
         this.arrivalTime = 0; // default arrival time
     }
 
-    public string ProcessId
+     public string Id
     {
-        get { return processId; }
+        get { return _id; }
     }
-
+    
     public int ArrivalTime
     {
         get { return arrivalTime; }

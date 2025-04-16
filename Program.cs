@@ -1,7 +1,4 @@
 ﻿
-using System.Diagnostics;
-using System.Security.Cryptography;
-
 public class Program
 {
     public static void Main(string[] args)
