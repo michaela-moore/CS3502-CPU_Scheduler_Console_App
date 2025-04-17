@@ -5,7 +5,13 @@
     <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>CS3502_CPU_Scheduler_Console_App</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestAdapter" Version="3.8.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.8.3" />
+  </ItemGroup>
 
 </Project>
