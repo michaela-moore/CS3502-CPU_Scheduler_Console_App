@@ -167,3 +167,9 @@ C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\CPU_Scheduling_Tests\
 C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\CPU_Scheduling_Tests\obj\Debug\net9.0\CPU_Scheduling_Tests.pdb
 C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\CPU_Scheduling_Tests\obj\Debug\net9.0\CPU_Scheduling_Tests.genruntimeconfig.cache
 C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\CPU_Scheduling_Tests\obj\Debug\net9.0\ref\CPU_Scheduling_Tests.dll
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\CPU_Scheduling_Tests\bin\Debug\net9.0\.msCoverageSourceRootsMapping_CPU_Scheduling_Tests
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\CPU_Scheduling_Tests\bin\Debug\net9.0\CPU_Scheduling.deps.json
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\CPU_Scheduling_Tests\bin\Debug\net9.0\CPU_Scheduling.runtimeconfig.json
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\CPU_Scheduling_Tests\bin\Debug\net9.0\CPU_Scheduling.exe
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\CPU_Scheduling_Tests\bin\Debug\net9.0\CPU_Scheduling.dll
+C:\Users\michaela\Desktop\CS3502-CPU_Scheduler_Console_App\CPU_Scheduling_Tests\bin\Debug\net9.0\CPU_Scheduling.pdb

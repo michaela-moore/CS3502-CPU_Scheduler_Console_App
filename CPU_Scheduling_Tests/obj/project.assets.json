@@ -684,6 +684,16 @@
             "related": ".xml"
           }
         }
+      },
+      "CPU_Scheduling/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/CPU_Scheduling.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CPU_Scheduling.dll": {}
+        }
       }
     }
   },
@@ -1643,10 +1653,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "CPU_Scheduling/1.0.0": {
+      "type": "project",
+      "path": "../CPU_Scheduling/CPU_Scheduling.csproj",
+      "msbuildProject": "../CPU_Scheduling/CPU_Scheduling.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "CPU_Scheduling >= 1.0.0",
       "MSTest >= 3.6.4",
       "Microsoft.NET.Test.Sdk >= 17.12.0"
     ]
@@ -1683,7 +1699,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\michaela\\Desktop\\CS3502-CPU_Scheduler_Console_App\\CPU_Scheduling\\CPU_Scheduling.csproj": {
+              "projectPath": "C:\\Users\\michaela\\Desktop\\CS3502-CPU_Scheduler_Console_App\\CPU_Scheduling\\CPU_Scheduling.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

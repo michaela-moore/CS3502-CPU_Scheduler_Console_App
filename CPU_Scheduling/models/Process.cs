@@ -1,4 +1,4 @@
-namespace CPU_SCHEDULING;
+namespace CPU_SCHEDULING.Models;
 public class Process 
 {
     readonly string _id;
@@ -6,6 +6,7 @@ public class Process
     readonly int burstTime;
     int remainingTime; //if preemptive (ie: SRTF)
     int completionTime;
+    
 
     
     public Process(string processId, int arrivalTime, int burstTime) {
