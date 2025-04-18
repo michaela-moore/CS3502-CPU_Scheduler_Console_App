@@ -16,9 +16,7 @@
                 new Process("P3", 7),
                 new Process("P4", 3),
             ];
-            //Console.WriteLine("Shortest Job First"); //non-preemptive 
-            //Algorithms.ShortestJobFirst(processes);
-
+          
             List<Process> processesWithAT =
             [
                 new Process("P1", 0, 6), //Process id and burst time
@@ -27,20 +25,31 @@
                 new Process("P4", 8, 5),
             ];
 
+            List<Process> testProcesses2 =
+        [
+            new Process("P1", 0, 2), 
+            new Process("P2", 0, 3),
+            new Process("P3", 3, 1),
+        ];
 
             //Number of processes, minburst time, maxburst time 
-            List<Process> randomProcessList  = GenerateProcesses(4, 1, 10); 
-        
+            List<Process> randomProcessList  = GenerateProcesses(4, 1, 10);
+
+
+            //Console.WriteLine("Shortest Job First"); //non-preemptive 
+            //Algorithms.ShortestJobFirst(processes);
 
 
             /* COMPARISONS */
             //Console.WriteLine("SHORTEST JOB FIRST --------");
             //Algorithms.ShortestJobFirst(randomProcessList);
             
-            
             Console.WriteLine("\nHIGHEST RESPONSE RATIO --------------");
-            Algorithms.HighestResponseRatio(processesWithAT);
-        
+            Algorithms.HighestResponseRatio(testProcesses2);
+
+
+            //Console.WriteLine("\nShortest Remaining Time First --------------");
+            //Algorithms.ShortestRemainingTimeFirst(processesWithAT);
 
 
 

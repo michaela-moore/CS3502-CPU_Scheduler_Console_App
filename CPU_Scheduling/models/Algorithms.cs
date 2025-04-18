@@ -69,6 +69,12 @@ namespace CPU_SCHEDULING.Models {
             - Non-preemptive: once a process starts executing, it runs to completion.
             - Selects the process with the largest response ratio from the ready queue.
             - Response Ratio = (Waiting Time + Burst Time) / Burst Time
+
+            Accounts for:
+            - Processes with the same arrival times and response rates [ie: selects lowest BT]
+            - Idle time (processes only run once arrived [ie: Arrival Time])
+            - No processes provided
+
         */
         public static void HighestResponseRatio(List<Process> processes) {
 
@@ -78,50 +84,48 @@ namespace CPU_SCHEDULING.Models {
                 Stopwatch totalTime = new();
                 totalTime.Start();
 
-                List<Process> processesQueued = new List<Process>();
-                List<Process> remainingProcesses = new List<Process>(processes);
-
-                //TODO 
-                //Orders by AT. Does not consider other variables such as BT if more than process has the same AT
-                remainingProcesses.Sort((a, b) => a.ArrivalTime.CompareTo(b.ArrivalTime)); 
-
+                int currentTime = 0;    
                 
+                List<Process> processQueue = new List<Process>();
+                List<Process> remainingProcesses = processes.OrderBy(p => p.ArrivalTime).ToList();
+            
+                //Get the first process based on AT
+                Process nextProcess = remainingProcesses.First();
+        
                 //Initiate processes ---- 
-                Process currentProcess;
+                while(remainingProcesses.Count > 0) {
 
-                for( int i = 0; i < remainingProcesses.Count; i++){
-                    
-                    currentProcess = remainingProcesses[i];
-
-                    //First process runs based on its AT which determines its CT
-                    currentProcess.CompletionTime = currentProcess.ArrivalTime + currentProcess.BurstTime;
-                    processesQueued.Add(currentProcess);
-                    remainingProcesses.Remove(currentProcess);
-
-                    //Evaluate remaining processes
-                    while(remainingProcesses.Count > 0) {
-                        Process lastQueued = processesQueued[processesQueued.Count - 1];
-
-                        //Calculate the RR for remaining processes to determine sequencing
-                        Console.WriteLine("\nCalculating response ratios for remaining processes...");    
-                        
-                        foreach(Process process in remainingProcesses){
-                            //CT is used to calc TAT, which is used to calc WT, which is needed to calc RR
-                            //(Highest) Response Rate (RR) is used to determine the next process to sequence
-                            process.CompletionTime = process.BurstTime + lastQueued.CompletionTime;
-                            
-                            LogProcessInfo(process);
-                        }
-
-                        //Find the process with the largest RR and add to queue
-                        Process largestResponseRate = remainingProcesses.OrderByDescending(p => p.ResponseRatio).First();
-                        processesQueued.Add(largestResponseRate);
-                        remainingProcesses.Remove(largestResponseRate);
+                    //Find processes that have arrived based on AT
+                    List<Process> arrivedProcess = remainingProcesses.Where(p => p.ArrivalTime <= currentTime).ToList();
+  
+                    //If no process arrived, increment time
+                    if(arrivedProcess.Count == 0){
+                        currentTime++;
                     }
+
+                     //Calculate the CT times for arrived processses using the currentTime {used to calc TAT, WT, and RR}
+                    foreach(Process p in arrivedProcess){
+                        p.CompletionTime = currentTime + p.BurstTime;
+                    }
+
+                    LogResponseRates(arrivedProcess);
+
+                    //Find the next process -- Order the list
+                    nextProcess = arrivedProcess
+                        .OrderByDescending(p => p.ResponseRatio)    //By Highest response rate
+                        .ThenBy(p => p.BurstTime)                   //By Burst Time if AT and RR are the same
+                        .First();
+
+                    //Move the time pointer forward
+                    currentTime += nextProcess.BurstTime;
+            
+                    processQueue.Add(nextProcess);
+                    remainingProcesses.Remove(nextProcess);
                 }
-                    totalTime.Stop();
-                    LogProcessesDetails(processesQueued);
-                    LogProcessPerformance(processesQueued.Count, totalTime);
+            
+                totalTime.Stop();
+                LogProcessesDetails(processQueue);
+                LogProcessPerformance(processQueue.Count, totalTime);
             } 
             else {
                 Console.WriteLine("No processes provided");
@@ -130,28 +134,52 @@ namespace CPU_SCHEDULING.Models {
 
         
         //Calculation Utilities
-
         public static double CalculateAvgTurnAroundTime(List<Process> processes) {
-            return processes.Average(process => process.TurnaroundTime);
+            return Math.Round(processes.Average(process => process.TurnaroundTime), 2);
         }
         public static double CalculateAvgWaitTime(List<Process> processes) {
-            return processes.Average(process => process.WaitTime);
+            return Math.Round(processes.Average(process => process.WaitTime), 2);
         }
         
         //Logging Utilities
         static void LogProcessInfo(Process p) {
-            Console.WriteLine($"{p.Id} \tAT {p.ArrivalTime} \tBT {p.BurstTime} \tCT {p.CompletionTime} \tTAT {p.TurnaroundTime} \tWT {p.WaitTime} \tRR {p.ResponseRatio}");
+            Console.WriteLine($"{p.Id} \tAT {p.ArrivalTime} \tBT {p.BurstTime} \tCT {p.CompletionTime} \tTAT {p.TurnaroundTime} \tWT {p.WaitTime}");
         }    
+        static void LogResponseRates(List<Process> processes) {
+
+            if(processes.Count > 1) {
+                Console.WriteLine("Calculating rates...");
+                Console.WriteLine("P \tBT \tCT \tRR");
+                foreach(Process p in processes){
+                    Console.WriteLine($"{p.Id}  \t{p.BurstTime}  \t{p.CompletionTime}  \t{p.ResponseRatio}");
+                }
+                
+                string selectedProcess = processes
+                        .OrderByDescending(p => p.ResponseRatio)    //By Highest response rate
+                        .ThenBy(p => p.BurstTime)                   //By Burst Time if AT and RR are the same
+                        .First().Id;
+
+                Console.WriteLine($"\n*Highest: {selectedProcess} [*if RR =, then selects smallest BT]");
+
+            } else if(processes.Count == 1) {
+                Console.WriteLine($"Next process {processes[0].Id}");
+            }
+           
+        }
         static void LogProcessesDetails(List<Process> processes) {
-            Console.WriteLine("'\n======== Scheduling Summary ====================");
-            Console.WriteLine("P \tAT \tBT \tCT \tTAT \tWT \tRR");
+            Console.WriteLine("\n======== Scheduling Summary ====================");
+            Console.WriteLine("P \tAT \tBT \tCT \tTAT \tWT");
             foreach(Process p in processes){
-                Console.WriteLine($"{p.Id} \t{p.ArrivalTime} \t{p.BurstTime} \t{p.CompletionTime} \t{p.TurnaroundTime} \t{p.WaitTime} \t{p.ResponseRatio}");
+                Console.WriteLine($"{p.Id} \t{p.ArrivalTime} \t{p.BurstTime} \t{p.CompletionTime} \t{p.TurnaroundTime} \t{p.WaitTime}");
             }
 
             Console.WriteLine("__________________________________________________\n");
             Console.WriteLine($"Total Processes: {processes.Count}");
-            Console.WriteLine($"Avg. Turnaround Time: {CalculateAvgTurnAroundTime(processes)}");
+            Console.Write("Order: ");
+            foreach(Process p in processes){
+                Console.Write($"{p.Id} ");
+            }
+            Console.WriteLine($"\nAvg. Turnaround Time: {CalculateAvgTurnAroundTime(processes)}");
             Console.WriteLine($"Avg. Wait Time: {CalculateAvgWaitTime(processes)}");
         }
         static void LogProcessPerformance(int totalProcesses, Stopwatch totalTime) {

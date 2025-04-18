@@ -5,9 +5,8 @@ using CPU_SCHEDULING.Models;
 public sealed class ShortestJobFirstTest
 {
 
-    /*Test Case - Basic */
     [TestMethod]
-    public void P4_WithVariousBT_AllDefaultAT()
+    public void Processes_WithVariousBT_AllDefaultAT()
     {
         List<Process> testProcesses =
         [

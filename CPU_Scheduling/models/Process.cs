@@ -60,6 +60,6 @@ public class Process
     }
     
     public double ResponseRatio {
-        get { return ((WaitTime + (double) burstTime) / burstTime) ; }  
+        get { return Math.Round((WaitTime + (double)burstTime) / burstTime, 1) ; }  
     }
 }
