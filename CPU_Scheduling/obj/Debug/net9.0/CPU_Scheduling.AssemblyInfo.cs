@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CPU_Scheduling")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+825b37354a44bd7ea10e62b7f3228f2316c43957")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a4fd052b204285730481ca44df263389bdb12110")]
 [assembly: System.Reflection.AssemblyProductAttribute("CPU_Scheduling")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CPU_Scheduling")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "ezVK095c54M=",
+  "dgSpecHash": "c6vmrumhtH0=",
   "success": true,
   "projectFilePath": "C:\\Users\\michaela\\Desktop\\CS3502-CPU_Scheduler_Console_App\\CPU_Scheduling\\CPU_Scheduling.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\michaela\\.nuget\\packages\\system.configuration.configurationmanager\\9.0.4\\system.configuration.configurationmanager.9.0.4.nupkg.sha512",
+    "C:\\Users\\michaela\\.nuget\\packages\\system.diagnostics.eventlog\\9.0.4\\system.diagnostics.eventlog.9.0.4.nupkg.sha512",
+    "C:\\Users\\michaela\\.nuget\\packages\\system.diagnostics.performancecounter\\9.0.4\\system.diagnostics.performancecounter.9.0.4.nupkg.sha512",
+    "C:\\Users\\michaela\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.4\\system.security.cryptography.protecteddata.9.0.4.nupkg.sha512"
+  ],
   "logs": []
 }

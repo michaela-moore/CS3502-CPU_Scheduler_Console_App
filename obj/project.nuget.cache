@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6ghnYgD8pU4=",
+  "dgSpecHash": "V7bUneWbnRI=",
   "success": true,
   "projectFilePath": "C:\\Users\\michaela\\Desktop\\CS3502-CPU_Scheduler_Console_App\\CS3502-CPU_Scheduler_Console_App.csproj",
   "expectedPackageFiles": [
@@ -14,8 +14,12 @@
     "C:\\Users\\michaela\\.nuget\\packages\\mstest.analyzers\\3.8.3\\mstest.analyzers.3.8.3.nupkg.sha512",
     "C:\\Users\\michaela\\.nuget\\packages\\mstest.testadapter\\3.8.3\\mstest.testadapter.3.8.3.nupkg.sha512",
     "C:\\Users\\michaela\\.nuget\\packages\\mstest.testframework\\3.8.3\\mstest.testframework.3.8.3.nupkg.sha512",
+    "C:\\Users\\michaela\\.nuget\\packages\\system.configuration.configurationmanager\\9.0.4\\system.configuration.configurationmanager.9.0.4.nupkg.sha512",
     "C:\\Users\\michaela\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.0\\system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",
-    "C:\\Users\\michaela\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512"
+    "C:\\Users\\michaela\\.nuget\\packages\\system.diagnostics.eventlog\\9.0.4\\system.diagnostics.eventlog.9.0.4.nupkg.sha512",
+    "C:\\Users\\michaela\\.nuget\\packages\\system.diagnostics.performancecounter\\9.0.4\\system.diagnostics.performancecounter.9.0.4.nupkg.sha512",
+    "C:\\Users\\michaela\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512",
+    "C:\\Users\\michaela\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.4\\system.security.cryptography.protecteddata.9.0.4.nupkg.sha512"
   ],
   "logs": []
 }

@@ -58,6 +58,10 @@
             "MSTest.TestFramework": {
               "target": "Package",
               "version": "[3.8.3, )"
+            },
+            "System.Diagnostics.PerformanceCounter": {
+              "target": "Package",
+              "version": "[9.0.4, )"
             }
           },
           "imports": [

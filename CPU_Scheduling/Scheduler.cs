@@ -1,72 +1,102 @@
 ﻿namespace CPU_SCHEDULING.Models
 {
+
     public class Scheduler
     {
-        public static void Main(string[] args)
-        {
-          Console.WriteLine("\nCPU Scheduling Algorithms Comparison");
-          Console.WriteLine("=====================================");
 
+        public static void Main(string[] args) {
 
-            //Test Case 
-            List<Process> processes =
+            List<Process> TEST_DATA =
             [
-                new Process("P1", 6), //Process id and burst time
-                new Process("P2", 8),
-                new Process("P3", 7),
-                new Process("P4", 3),
-            ];
-          
-            List<Process> processesWithAT =
-            [
-                new Process("P1", 0, 6), //Process id and burst time
-                new Process("P2", 4, 10),
-                new Process("P3", 4, 4),
-                new Process("P4", 8, 5),
+                new Process("P1", 0, 8), 
+                new Process("P2", 1, 4),
+                new Process("P3", 2, 9), 
+                new Process("P4", 3, 5),
             ];
 
-            List<Process> testProcesses2 =
-        [
-            new Process("P1", 0, 2), 
-            new Process("P2", 0, 3),
-            new Process("P3", 3, 1),
-        ];
+            Console.WriteLine(">>>>" + TEST_DATA.Count);
 
-            //Number of processes, minburst time, maxburst time 
-            List<Process> randomProcessList  = GenerateProcesses(4, 1, 10);
-
-
-            //Console.WriteLine("Shortest Job First"); //non-preemptive 
-            //Algorithms.ShortestJobFirst(processes);
-
-
-            /* COMPARISONS */
-            //Console.WriteLine("SHORTEST JOB FIRST --------");
-            //Algorithms.ShortestJobFirst(randomProcessList);
-            
-            Console.WriteLine("\nHIGHEST RESPONSE RATIO --------------");
-            Algorithms.HighestResponseRatio(testProcesses2);
-
-
-            //Console.WriteLine("\nShortest Remaining Time First --------------");
-            //Algorithms.ShortestRemainingTimeFirst(processesWithAT);
-
-
-
-
-
-
-            //Test Cases
-            // 10 Processes
-            // 100 Processes
-            // 1000 Processes
-            // 10000 Processes
-            // 20 Processes with  min 0 - max 1000 burst times
-            // AT = 0 & BT are same
+           Algorithms.ShortestRemainingTimeFirst(TEST_DATA);
 
         }
+        // public static void Main(string[] args)
+        // {
+        //     Console.WriteLine("\nCPU Scheduling Algorithms Comparison");
+        //     Console.WriteLine("=====================================");
+        //     bool programActive = true;
 
-        public static List<Process> GenerateProcesses(int totalProcesses, int minBurstTime, int maxBurstTime) {
+        //     while(programActive){
+        //         Console.WriteLine($"\nEnter number of processes to schedule: [0 or any KEY to exit] ");
+        //             string totalNumberOfProcesses = Console.ReadLine() ?? "";
+
+        //             bool isValidNumber = int.TryParse(totalNumberOfProcesses, out int totalProcesses);
+
+        //         if(totalProcesses == 0 || !isValidNumber) {
+        //             programActive = false;
+
+        //             Console.WriteLine("Stoping...");
+
+        //         } else {
+        //                 Console.WriteLine("\n...working...\n");
+
+        //                 // Performance.LogCPUU(()=> Algorithms.ShortestJobFirst(
+        //                 //         GenerateProcessesWithAT(totalProcesses)
+        //                 //         )
+                                
+        //                 // );
+
+        //                 // Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(
+        //                 //         GenerateProcessesWithAT(totalProcesses)
+        //                 //         )
+        //                 // );
+
+        //                 // Performance.LogCPUU(()=> Algorithms.ShortestTimeRemainingFirst(
+        //                 //         GenerateProcessesWithAT(totalProcesses)
+        //                 //         )
+        //                 // );
+        //         }
+                
+        //     } 
+        //     List<Process> EC_1 =
+        //     [
+        //         new Process("P1", 0, 6), 
+        //         new Process("P2", 0, 6),
+        //         new Process("P3", 0, 6), 
+        //         new Process("P4", 0, 6),
+        //         new Process("P5", 0, 6), 
+        //     ];
+        //     Console.WriteLine("\n=====================================");
+        //     Console.WriteLine("Edge Case (1) All processes arrive at time 0 with identical burst times");
+        //     Console.WriteLine("======================================="); 
+        //     Performance.LogCPUU(()=> Algorithms.ShortestJobFirst(EC_1));
+        //     Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(EC_1));
+        //     Performance.LogCPUU(()=> Algorithms.ShortestTimeRemainingFirst(EC_1));
+
+        //     List<Process> EC_2 =
+        //     [
+        //         new Process("P1", 1, 1), 
+        //         new Process("P2", 15, 50),
+        //         new Process("P3", 3, 4), 
+        //         new Process("P4", 123, 1100),
+        //         new Process("P5", 5, 1), 
+        //         new Process("P6", 12, 32),
+        //     ];  
+        //     Console.WriteLine("\n=======================================");
+        //     Console.WriteLine("Edge Case (2) Extremely long burst times mixed with very short burst times.");
+        //     Console.WriteLine("=========================================");
+        //     Performance.LogCPUU(()=> Algorithms.ShortestJobFirst(EC_2));
+        //     Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(EC_2));
+        //     Performance.LogCPUU(()=> Algorithms.ShortestTimeRemainingFirst(EC_2));
+        // }
+
+        //Generates processes with min/max burst time -- NO arrival time given (defaults to 0)
+        
+        
+
+
+        
+        /* ----------------------------------------- HELPERS -----------------------------------------*/
+        public static List<Process> GenerateProcessesWithoutAT(int totalProcesses, int minBurstTime, int maxBurstTime) {
 
             List<Process> processes = [];
             Random random = new();
@@ -79,10 +109,37 @@
             }
 
             return processes;
+        }
+        
+        //Generates processes with random burst times and arrival times
+        public static List<Process> GenerateProcessesWithAT(int totalProcesses) {
+            List<Process> processes = [];
+            Random random = new();
 
+            for (int i = 0; i < totalProcesses; i++)
+            {
+                string processId = "P" + (i + 1).ToString();
+                int burstTime = random.Next(1, (totalProcesses*2)); 
+                int arrivalTime = random.Next(0, (totalProcesses * 3));
+                processes.Add(new Process(processId, burstTime, arrivalTime));
+            }
+
+            return processes;
         }
 
-   
+        //Generates processes with min/max burst times and random arrival times
+        public static List<Process> GenerateProcessesWithAT(int totalProcesses, int minBurstTime, int maxBurstTime) {
+            List<Process> processes = [];
+            Random random = new();
+
+            for (int i = 0; i < totalProcesses; i++) {
+                string processId = "P" + (i + 1).ToString();
+                int burstTime = random.Next(minBurstTime, maxBurstTime); // Random burst time between minBurstTime and max
+                int arrivalTime = random.Next(0, (totalProcesses * 2));
+                processes.Add(new Process(processId, burstTime, arrivalTime));
+            }
+            return processes;
+        }
 
     }
 }
