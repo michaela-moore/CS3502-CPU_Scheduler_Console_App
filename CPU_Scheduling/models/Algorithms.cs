@@ -11,61 +11,60 @@ namespace CPU_SCHEDULING.Models {
         */
         public static void ShortestJobFirst(List<Process> processes)
         { 
-            Console.WriteLine("\n============SHORTEST JOB FIRST ============");
+            Console.WriteLine("\n= = = = = = = SHORTEST JOB FIRST = = = = = = = ");
 
-            //Test 
-            LogProcessSchedule(processes);
-            
             //Check for empty list
             if (processes.Count > 0){
 
                 Stopwatch totalTime = new();
-
-                //Measure time taken to run the algorithm
                 totalTime.Start();
 
-                
                 int currentTime = 0;
-                List<Process> processQueue = new();
+
+                List<Process> completedProcesses = new();
                 List<Process> remainingProcesses = processes.OrderBy(p => p.ArrivalTime).ToList();
-                Process? nextProcess = remainingProcesses.First(); //first shouldnt be null, but may be null after the first
 
                 //Initiate processes
                 while(remainingProcesses.Count > 0){
 
-                    //Find processes that have arrived based on their arrival time and the current time
-                    List<Process> arrivedProcess = remainingProcesses.Where(p=> p.ArrivalTime <= currentTime).ToList();
+                    //Find processes that have arrived
+                    List<Process> arrivedProcesses = remainingProcesses.Where(p=> p.ArrivalTime <= currentTime).ToList();
 
-                    //If no process has arrived, increment time counter forward
-                    if(arrivedProcess.Count == 0){
+                    // Increment currentTime when no process is ready (to simulate idle CPU time)
+                    if(arrivedProcesses.Count == 0){
                         currentTime++;
-                    }
-
-                    //If process has arrived, find the job with the shortest BT
-                    nextProcess = arrivedProcess.OrderByDescending(p => p.BurstTime).First();
-
-                    if(nextProcess == null){ 
-                        break;
-                    }
-
-                    //Calculate its completion time
-                    nextProcess.CompletionTime = currentTime + nextProcess.BurstTime;                    currentTime += nextProcess.CompletionTime;
-
-                    //update the list
-                    remainingProcesses.Remove(nextProcess);
-
-                    totalTime.Stop();
-            
                     
+                    //Start the job
+                    } else {
+
+                        //Select process with the shortest run time
+                        Process? activeProcess = arrivedProcesses.MinBy(p => p.BurstTime);
+
+                        if (activeProcess != null) {
+                            //Execute job
+                            activeProcess.FirstStartTime = currentTime;
+                            activeProcess.CompletionTime = currentTime + activeProcess.BurstTime;   //SJF non-preemptive (runs till completion)
+                            activeProcess.RemainingTime = 0;  //job completed              
+                            
+                            currentTime += activeProcess.BurstTime;
+
+                            //update queues
+                            completedProcesses.Add(activeProcess);
+                            remainingProcesses.Remove(activeProcess);
+                        }
+                        
+                    }
+    
                 }  
+                totalTime.Stop();
                 
                 /*LOG RESULTS*/
-                LogProcessSchedule(processQueue);
-                LogProcessStats(processQueue, totalTime);
+                LogProcessSchedule(completedProcesses);
+                LogProcessStats(completedProcesses, totalTime);
             } 
             
             else {
-                Console.WriteLine("No processes in list");
+                Console.WriteLine("No processes available for scheduling");
             }
         }
 
@@ -75,28 +74,19 @@ namespace CPU_SCHEDULING.Models {
         */
         public static void ShortestRemainingTimeFirst(List<Process> processes) {
 
-        Console.WriteLine("\n============SHORTEST REMAINING TIME FIRST ============");
-
-            Stopwatch totalTime = new();
-            totalTime.Start();
+        Console.WriteLine("\n= = = = = = = SHORTEST REMAINING TIME FIRST = = = = = = = ");
 
             //Check list to ensure not empty/null
             if(processes.Count > 0){
 
+                Stopwatch totalTime = new();
+                totalTime.Start();
                 int currentTime = 0;
 
                 //Jobs that need to run
-                List<Process> remainingProcesses = processes
-                    .Select(p => 
-                    {
-                        p.RemainingTime = p.BurstTime; // Add & initilize remaining time to each process (starts as the job time)
-                        return p;
-                    })
-                    .ToList();
-
+                List<Process> remainingProcesses = new List<Process>(processes);
                 List<Process> completedProcesses = new();
-                Process activeProcess; 
-
+                
 
                 // Console.WriteLine("remaining processes post RS calc "); 
                 // LogProcessSchedule(processes);
@@ -106,33 +96,45 @@ namespace CPU_SCHEDULING.Models {
                 while(remainingProcesses.Count > 0){
 
                     //Find the processes that have arrived sorted by AT
-                    List<Process> arrivedProcess = remainingProcesses
+                    List<Process> arrivedProcesses = remainingProcesses
                         .Where(p => p.ArrivalTime <= currentTime)
                         .OrderBy(p => p.ArrivalTime)
-                        .ToList();
-        
-                    //Start if a process is ready
-                    if(arrivedProcess.Count > 0){
+                        .ToList();  
 
-                        //Set the active process to the job that is available AND with shortest remaining time left
-                        activeProcess = arrivedProcess.OrderBy(p => p.RemainingTime).First();
+                    if(arrivedProcesses.Count == 0) {
+                      // Increment currentTime when no process is ready (to simulate idle CPU time)
+                        currentTime++;  
+                    }
+                    //Start if a process is ready
+                    else {
+
+                        //Set the active process to the remaining job with shortest remaining time left
+                        Process? activeProcess = arrivedProcesses.MinBy(p => p.RemainingTime);
 
                         // Console.WriteLine("\nACTIVE PROCESS " + activeProcess.Id);
-                
-                        //Move time forward
-                        currentTime++;
-
                         // Console.WriteLine("\ncurrent time " + currentTime); 
 
-                        activeProcess.RemainingTime --; 
+                        if (activeProcess != null){
 
-                        // Console.WriteLine("active process RT " + activeProcess.RemainingTime);
+                            //Set start time for jobs starting for the first time
+                            if(activeProcess.FirstStartTime == -1) { 
+                                activeProcess.FirstStartTime = currentTime; 
+                            }
 
-                        if(activeProcess.RemainingTime == 0) {
-                            activeProcess.CompletionTime = currentTime;
-                            completedProcesses.Add(activeProcess);
-                            remainingProcesses.Remove(activeProcess);
+                            //Move time forward
+                            currentTime++;
+
+                            activeProcess.RemainingTime --; //decrement the remaining runtime for the job
+
+                            // Console.WriteLine("active process RT " + activeProcess.RemainingTime);
+
+                            if(activeProcess.IsCompleted) {
+                                activeProcess.CompletionTime = currentTime;
+                                completedProcesses.Add(activeProcess);
+                                remainingProcesses.Remove(activeProcess);
+                            }
                         }
+                        
                     }
                 }
                  LogProcessSchedule(completedProcesses);
@@ -157,64 +159,67 @@ namespace CPU_SCHEDULING.Models {
         */
         public static void HighestResponseRatio(List<Process> processes) {
 
-            Stopwatch totalTime = new();
-            totalTime.Start();
+            Console.WriteLine("\n= = = = = = = HIGHEST RESPONSE RATE FIRST = = = = = = = ");
 
             //Ensures list is not empty/null 
             if(processes.Count > 0){
-
+                
+                Stopwatch totalTime = new();
+                totalTime.Start();
                 int currentTime = 0;    
                 
-                List<Process> processQueue = new List<Process>();
+                List<Process> completedProcesses = new List<Process>();
                 List<Process> remainingProcesses = processes.OrderBy(p => p.ArrivalTime).ToList();
-            
-                //Get the first process based on AT
-                Process? nextProcess = remainingProcesses.First(); //might be null after the first process arrives 
         
                 //Iterate through the remaining processes to initate jobs runnning
                 while(remainingProcesses.Count > 0) {
 
-                    //Find processes that have arrived based on AT
-                    List<Process> arrivedProcess = remainingProcesses.Where(p => p.ArrivalTime <= currentTime).ToList();
+                    //Find processes that have arrived based on AT 
+                    List<Process> arrivedProcesses = remainingProcesses.Where(p => p.ArrivalTime <= currentTime).ToList();
   
-                    //If no process arrived, increment time
-                    if(arrivedProcess.Count == 0){
+                    //Move time forward if no process ready (idle)
+                    if(arrivedProcesses.Count == 0  || arrivedProcesses == null){
                         currentTime++;
+                    
+                    //Find process to start
                     } else {
-                        //Calculate the CT times for arrived processses using the currentTime {used to calc TAT, WT, and RR}
-                         foreach(Process p in arrivedProcess){
+                    
+                         //Calculate the CT times for arrived processses using the currentTime {used to calc TAT, WT, and RR}
+                         foreach(Process p in arrivedProcesses){
                             p.CompletionTime = currentTime + p.BurstTime;
                         }
 
                         /*LOG RESULTS*/
-                        //LogResponseRates(arrivedProcess);
+                        //LogResponseRates(arrivedProcesses);
 
-                        //Find the next process -- Order the list
-                        nextProcess = arrivedProcess
-                            .OrderByDescending(p => p.ResponseRatio)    //By Highest response rate
-                            .ThenBy(p => p.BurstTime)                   //By Burst Time if AT and RR are the same
-                            .FirstOrDefault();
+                        //Select process based on Highst Response Rate
+                        Process activeProcess = arrivedProcesses
+                            .OrderByDescending(p => p.ResponseRatio)    
+                            .ThenBy(p => p.BurstTime)                   // if AT and RR are == then selects smallest BT
+                            .First();                           
+                        
+                        //capture process' starting time
+                        activeProcess.FirstStartTime = currentTime;
 
-                        if (nextProcess == null){ 
-                            break; 
-                        }
-
-                        //Move the time pointer forward
-                        currentTime += nextProcess.BurstTime;
-                
-                        processQueue.Add(nextProcess);
-                        remainingProcesses.Remove(nextProcess); 
-                    }
+                        //Move the time pointer forward so active process can complete
+                        currentTime += activeProcess.BurstTime;
+                        activeProcess.RemainingTime = 0;
+        
+                        //Update queues                
+                        completedProcesses.Add(activeProcess);
+                        remainingProcesses.Remove(activeProcess); 
                     
+                    }                   
+               
                 }
             
                 
                 /*LOG RESULTS*/
-                //LogProcessSchedule(processQueue);
+                //LogProcessSchedule(completedProcesses);
                 totalTime.Stop();
                 
                 Console.WriteLine("\n============ HIGHEST RESPONSE RATIO ============");
-                LogProcessStats(processQueue, totalTime);
+                LogProcessStats(completedProcesses, totalTime);
             } 
             else {
                 Console.WriteLine("No processes provided");
@@ -225,7 +230,7 @@ namespace CPU_SCHEDULING.Models {
 
         /* ----------------------------------------- HELPERS -----------------------------------------*/
 
-        //Calculation Utilities
+        //Calculations 
         public static double CalculateAvgTurnAroundTime(List<Process> processes) {
             
             if(processes.Count == 0 || processes == null) {
@@ -233,7 +238,13 @@ namespace CPU_SCHEDULING.Models {
             }
             return Math.Round(processes.Average(process => process.TurnaroundTime), 2);
         }
-
+        public static double CalculateAvgResponseTime(List<Process> processes) {
+            
+            if(processes.Count == 0 || processes == null) {
+                return 0;
+            }
+            return Math.Round(processes.Average(process => process.ResponseTime), 2);
+        }
         public static double CalculateAvgWaitTime(List<Process> processes) {
 
             if(processes.Count == 0 || processes == null) {
@@ -244,11 +255,11 @@ namespace CPU_SCHEDULING.Models {
         }
         
 
-        //Logging Utilities
-        static void LogProcessInfo(Process p) {
+        //Logging Statements
+        public static void LogProcessInfo(Process p) {
             Console.WriteLine($"{p.Id} \tAT {p.ArrivalTime} \tBT {p.BurstTime} \tCT {p.CompletionTime} \tTAT {p.TurnaroundTime} \tWT {p.WaitTime}");
         }    
-        static void LogResponseRates(List<Process> processes) {
+        public static void LogResponseRates(List<Process> processes) {
 
             if(processes.Count > 1) {
                 Console.WriteLine("Calculating rates...");
@@ -269,23 +280,24 @@ namespace CPU_SCHEDULING.Models {
             }
            
         }
-        static void LogProcessSchedule(List<Process> processes) {
-            Console.WriteLine("\n============ Scheduling Summary ============");
-            Console.WriteLine("P \tAT \tBT \tCT \tTAT \tWT");
+        public static void LogProcessSchedule(List<Process> processes) {
+            Console.WriteLine("\n - - - - - - - Timing Summary  - - - - - - -");
+            Console.WriteLine("P \tAT \tBT \tCT \tTAT \tWT \tResp. T");
             foreach(Process p in processes){
-                Console.WriteLine($"{p.Id} \t{p.ArrivalTime} \t{p.BurstTime} \t{p.CompletionTime} \t{p.TurnaroundTime} \t{p.WaitTime}");
+                Console.WriteLine($"{p.Id} \t{p.ArrivalTime} \t{p.BurstTime} \t{p.CompletionTime} \t{p.TurnaroundTime} \t{p.WaitTime} \t{p.ResponseTime}");
             }
-            Console.WriteLine("__________________________________________________");
+            Console.WriteLine("_______________________________________________________");
             Console.Write("Order: ");
             foreach(Process p in processes){
                 Console.Write($"{p.Id} ");
             }
         }
-        static void LogProcessStats(List<Process> processes, Stopwatch totalTime) {
+        public static void LogProcessStats(List<Process> processes, Stopwatch totalTime) {
             Console.WriteLine("\n\nPerformance Metrics ----------");
             Console.WriteLine($"Total Processes Ran: {processes.Count}");
             Console.WriteLine($"Avg. Turnaround Time: {CalculateAvgTurnAroundTime(processes)}");
-            Console.WriteLine($"Avg. Wait Time: {CalculateAvgWaitTime(processes)}");            
+            Console.WriteLine($"Avg. Wait Time: {CalculateAvgWaitTime(processes)}");         
+            Console.WriteLine($"Avg. Turnaround Time: {CalculateAvgResponseTime(processes)}");
             Console.WriteLine($"Total Time: {totalTime.ElapsedMilliseconds} ms");
         }
     }

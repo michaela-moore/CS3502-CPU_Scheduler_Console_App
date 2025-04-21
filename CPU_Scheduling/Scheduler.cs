@@ -16,7 +16,7 @@
 
             Console.WriteLine(">>>>" + TEST_DATA.Count);
 
-           Algorithms.ShortestRemainingTimeFirst(TEST_DATA);
+           Algorithms.ShortestJobFirst(TEST_DATA);
 
         }
         // public static void Main(string[] args)

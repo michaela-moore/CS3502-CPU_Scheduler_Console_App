@@ -4,6 +4,8 @@ public class Process
     readonly string _id;
     readonly int arrivalTime;
     readonly int burstTime;
+
+    int firstStartTime = -1; //default not set
     int remainingTime; //if preemptive (ie: SRTF)
     int completionTime;
     
@@ -13,6 +15,7 @@ public class Process
         _id = processId;
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
+        this.remainingTime = this.burstTime;
     }
 
 
@@ -20,6 +23,8 @@ public class Process
         _id = processId;
         this.burstTime = burstTime;
         this.arrivalTime = 0; // default arrival time
+        this.remainingTime = this.burstTime;
+
     }
 
      public string Id
@@ -62,4 +67,18 @@ public class Process
     public double ResponseRatio {
         get { return Math.Round((WaitTime + (double)burstTime) / burstTime, 1) ; }  
     }
+
+    public bool IsCompleted {
+        get { return RemainingTime == 0; } 
+    }
+
+    public int FirstStartTime {
+        get { return firstStartTime; }
+        set {firstStartTime = value; }
+    }
+
+    public int ResponseTime {
+        get { return  firstStartTime - ArrivalTime; }
+    }
+
 }
