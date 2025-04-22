@@ -8,7 +8,7 @@
         {
             Console.WriteLine("\nCPU Scheduling Algorithms Comparison");
             Console.WriteLine("=====================================");
-            bool programActive = true;
+           bool programActive = true;
 
             while(programActive){
                 Console.WriteLine($"\nEnter number of processes to schedule: [0 or any KEY to exit] ");
@@ -19,7 +19,7 @@
                 if(totalProcesses == 0 || !isValidNumber) {
                     programActive = false;
 
-                    Console.WriteLine("Stoping...");
+                    Console.WriteLine("Stopping...");
 
                 } else {
                         Console.WriteLine("\n...working...\n");
@@ -31,53 +31,55 @@
                         Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(processesWithAt));
                         Performance.LogCPUU(()=> Algorithms.FirstComeFirstServed(processesWithAt));
                         Performance.LogCPUU(()=> Algorithms.ShortestJobFirst(processesWithAt));
-                        
-                        
-
-                        //Algorithms.ShortestRemainingTimeFirst(processesWithAt);
-                        //Algorithms.FirstComeFirstServed(processesWithAt);
-                        //Algorithms.ShortestJobFirst(processesWithAt);
-                        //Algorithms.HighestResponseRatio(processesWithAt);
-
-                        //Performance.LogCPUU(()=> Algorithms.ShortestRemainingTimeFirst(processesNoAt));
-                        //Performance.LogCPUU(()=> Algorithms.FirstComeFirstServed(processesNoAt));
-                        //Performance.LogCPUU(()=> Algorithms.ShortestJobFirst(processesNoAt));
-                        //Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(processesNoAt));
                 }
-                
             } 
-            List<Process> EC_1 =
-            [
-                new Process("P1", 0, 6), 
-                new Process("P2", 0, 6),
-                new Process("P3", 0, 6), 
-                new Process("P4", 0, 6),
-                new Process("P5", 0, 6), 
-            ];
-            Console.WriteLine("\n=====================================");
-            Console.WriteLine("Edge Case (1) All processes arrive at time 0 with identical burst times");
-            Console.WriteLine("======================================="); 
-            Performance.LogCPUU(()=> Algorithms.FirstComeFirstServed(EC_1));
-            Performance.LogCPUU(()=> Algorithms.ShortestJobFirst(EC_1));
-            Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(EC_1));
-            Performance.LogCPUU(()=> Algorithms.ShortestRemainingTimeFirst(EC_1));
 
-            List<Process> EC_2 =
-            [
-                new Process("P1", 1, 1), 
-                new Process("P2", 15, 50),
-                new Process("P3", 3, 4), 
-                new Process("P4", 123, 1100),
-                new Process("P5", 5, 1), 
-                new Process("P6", 12, 32),
-            ];  
-            Console.WriteLine("\n=======================================");
-            Console.WriteLine("Edge Case (2) Extremely long burst times mixed with very short burst times.");
-            Console.WriteLine("=========================================");
-            Performance.LogCPUU(()=> Algorithms.FirstComeFirstServed(EC_2));
-            Performance.LogCPUU(()=> Algorithms.ShortestJobFirst(EC_2));
-            Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(EC_2));
-            Performance.LogCPUU(()=> Algorithms.ShortestRemainingTimeFirst(EC_2));
+            // List<Process> EC_1 =
+            // [
+            //     new Process("P1", 0, 6), 
+            //     new Process("P2", 0, 6),
+            //     new Process("P3", 0, 6), 
+            //     new Process("P4", 0, 6),
+            //     new Process("P5", 0, 6), 
+            // ];
+
+            
+            // Console.WriteLine("\n=====================================");
+            // Console.WriteLine("Edge Case (1) All processes arrive at time 0 with identical burst times");
+            // Console.WriteLine("======================================="); 
+            // // Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(EC_1));
+            // // Algorithms.LogProcessSchedule(EC_1);
+            // // Performance.LogCPUU(()=> Algorithms.ShortestRemainingTimeFirst(EC_1));
+            // // Algorithms.LogProcessSchedule(EC_1);
+            // // Performance.LogCPUU(()=> Algorithms.FirstComeFirstServed(EC_1));
+            // // Algorithms.LogProcessSchedule(EC_1);
+            // Performance.LogCPUU(()=> Algorithms.ShortestJobFirst(EC_1));
+            // Algorithms.LogProcessSchedule(EC_1);
+            
+
+            // List<Process> EC_2 =
+            // [
+            //     new Process("P1", 1, 1), 
+            //     new Process("P2", 15, 50),
+            //     new Process("P3", 3, 4), 
+            //     new Process("P4", 43, 100),
+            //     new Process("P5", 5, 1), 
+            //     new Process("P6", 12, 32),
+            // ]; 
+
+            
+            // Console.WriteLine("\n=======================================");
+            // Console.WriteLine("Edge Case (2) Extremely long burst times mixed with very short burst times.");
+            // Console.WriteLine("=========================================");
+            // // Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(EC_2));
+            // // Algorithms.LogProcessSchedule(EC_2);
+            // // Performance.LogCPUU(()=> Algorithms.ShortestRemainingTimeFirst(EC_2));
+            // // Algorithms.LogProcessSchedule(EC_2);
+            // // Performance.LogCPUU(()=> Algorithms.FirstComeFirstServed(EC_2));
+            // // Algorithms.LogProcessSchedule(EC_2);
+            // Performance.LogCPUU(()=> Algorithms.ShortestJobFirst(EC_2));
+            // Algorithms.LogProcessSchedule(EC_2);
+            
         }
         
 
