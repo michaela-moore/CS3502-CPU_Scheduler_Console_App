@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dotnet",
+			"task": "watch CPU_Scheduling",
+			"file": "C:\\Users\\michaela\\Desktop\\CS3502-CPU_Scheduler_Console_App\\CPU_Scheduling.csproj",
+			"problemMatcher": [],
+			"label": "dotnet: watch CPU_Scheduling",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

@@ -27,10 +27,12 @@
                         List<Process> processesWithAt = GenerateProcessesWithAT(totalProcesses);
                         //List<Process> processesNoAt = GenerateProcessesWithoutAT(totalProcesses);
 
+                        Performance.LogCPUU(()=> Algorithms.ShortestRemainingTimeFirst(processesWithAt));
+                        Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(processesWithAt));
                         Performance.LogCPUU(()=> Algorithms.FirstComeFirstServed(processesWithAt));
                         Performance.LogCPUU(()=> Algorithms.ShortestJobFirst(processesWithAt));
-                        Performance.LogCPUU(()=> Algorithms.HighestResponseRatio(processesWithAt));
-                        Performance.LogCPUU(()=> Algorithms.ShortestRemainingTimeFirst(processesWithAt));
+                        
+                        
 
                         //Algorithms.ShortestRemainingTimeFirst(processesWithAt);
                         //Algorithms.FirstComeFirstServed(processesWithAt);
