@@ -24,7 +24,6 @@ public sealed class ShortestRemainingTimeFirstTest
         double calculated_AVG_TAT = Algorithms.CalculateAvgTurnAroundTime(testProcesses);
         double calculated_AVG_WT = Algorithms.CalculateAvgWaitTime(testProcesses);
 
-
         //Outcome
         Assert.AreEqual(EXPECTED_AVG_WT, calculated_AVG_WT);
         Assert.AreEqual(EXPECTED_AVG_TAT, calculated_AVG_TAT);
@@ -51,7 +50,6 @@ public sealed class ShortestRemainingTimeFirstTest
         double calculated_AVG_TAT = Algorithms.CalculateAvgTurnAroundTime(testProcesses);
         double calculated_AVG_WT = Algorithms.CalculateAvgWaitTime(testProcesses);
         
-
         //Outcome
         Assert.AreEqual(EXPECTED_AVG_WT, calculated_AVG_WT);
         Assert.AreEqual(EXPECTED_AVG_TAT, calculated_AVG_TAT);

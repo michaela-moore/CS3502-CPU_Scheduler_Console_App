@@ -18,7 +18,7 @@ public sealed class HighestResponseRateAlgoTest
 
         double EXPECTED_AVG_TAT = 11.25;
         double EXPECTED_AVG_WT = 5;
-        string[] EXPECTED_PROCESS_ORDER = ["P1", "P3", "P2", "P4"];
+        //string[] EXPECTED_PROCESS_ORDER = ["P1", "P3", "P2", "P4"];
 
         //Run Scheduling Calcs
         Algorithms.HighestResponseRatio(testProcesses);
@@ -42,7 +42,7 @@ public sealed class HighestResponseRateAlgoTest
 
         double EXPECTED_AVG_TAT = 5.33;
         double EXPECTED_AVG_WT = 2.33;
-        string[] EXPECTED_PROCESS_ORDER = ["P1", "P2", "P3"];
+        //string[] EXPECTED_PROCESS_ORDER = ["P1", "P2", "P3"];
 
         //Run Scheduling Calcs
         Algorithms.HighestResponseRatio(testProcesses);
@@ -65,7 +65,7 @@ public sealed class HighestResponseRateAlgoTest
 
         double EXPECTED_AVG_TAT = 3.33;
         double EXPECTED_AVG_WT = 1.33;
-        string[] EXPECTED_PROCESS_ORDER = ["P1", "P2", "P3"];
+        //string[] EXPECTED_PROCESS_ORDER = ["P1", "P2", "P3"];
 
         //Run Scheduling Calcs
         Algorithms.HighestResponseRatio(testProcesses);

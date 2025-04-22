@@ -40,7 +40,7 @@ namespace CPU_SCHEDULING {
                 function();
              }
 
-            Console.WriteLine($"CPU Utilization: {cpuUsage} %");
+            Console.WriteLine($"CPU Utilization: {Math.Round(cpuUsage, 2)} %");
             Console.WriteLine($"Processes/second: {processCountAfter - processCountBefore} ");
 
         }

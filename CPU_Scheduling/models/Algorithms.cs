@@ -4,6 +4,67 @@ namespace CPU_SCHEDULING.Models {
 
     public class Algorithms
     {
+        /* First Come First Served Algorithm 
+            - non-preemptive:  once a process starts executing, it runs to completion.
+            - Selects the process with the smallest burst time from the ready queue.
+        
+        */
+         public static void FirstComeFirstServed(List<Process> processes)
+        { 
+            Console.WriteLine("\n= = = = = = = FIRST COME FIRST SERVED = = = = = = = ");
+
+            //Check for empty list
+            if (processes.Count > 0){
+
+                Stopwatch totalTime = new();
+                totalTime.Start();
+
+                int currentTime = 0;
+
+                List<Process> completedProcesses = new();
+                List<Process> remainingProcesses = processes.OrderBy(p => p.ArrivalTime).ToList();
+
+                //Initiate processes
+                while(remainingProcesses.Count > 0){
+
+                    //Find processes that have arrived
+                    List<Process> arrivedProcesses = remainingProcesses.Where(p=> p.ArrivalTime <= currentTime).ToList();
+
+                    // Increment currentTime when no process is ready (to simulate idle CPU time)
+                    if(arrivedProcesses.Count == 0){
+                        currentTime++;
+                    
+                    //Start the job
+                    } else {
+
+                        //Select process with the shortest run time
+                        Process? activeProcess = arrivedProcesses.First();
+
+                        if (activeProcess != null) {
+                            //Execute job
+                            activeProcess.FirstStartTime = currentTime;
+                            activeProcess.CompletionTime = currentTime + activeProcess.BurstTime;   //non-preemptive (runs till completion)
+                            activeProcess.RemainingTime = 0;  //job completed              
+                            
+                            currentTime += activeProcess.BurstTime;
+
+                            //update queues
+                            completedProcesses.Add(activeProcess);
+                            remainingProcesses.Remove(activeProcess);
+                        }
+                    }
+                }  
+                totalTime.Stop();
+                
+                /*LOG RESULTS*/
+                LogProcessSchedule(completedProcesses);
+                LogProcessStats(completedProcesses, totalTime);
+            } 
+            
+            else {
+                Console.WriteLine("No processes available for scheduling");
+            }
+        }
     
         /* Shortest Job First (SJF) Scheduling Algorithm
             - Non-preemptive: once a process starts executing, it runs to completion.
@@ -87,10 +148,8 @@ namespace CPU_SCHEDULING.Models {
                 List<Process> remainingProcesses = new List<Process>(processes);
                 List<Process> completedProcesses = new();
                 
-
                 // Console.WriteLine("remaining processes post RS calc "); 
                 // LogProcessSchedule(processes);
-
 
                 //Iterate through the remaining processes to initate jobs
                 while(remainingProcesses.Count > 0){
@@ -215,10 +274,9 @@ namespace CPU_SCHEDULING.Models {
             
                 
                 /*LOG RESULTS*/
-                //LogProcessSchedule(completedProcesses);
                 totalTime.Stop();
                 
-                Console.WriteLine("\n============ HIGHEST RESPONSE RATIO ============");
+                LogProcessSchedule(completedProcesses);
                 LogProcessStats(completedProcesses, totalTime);
             } 
             else {
@@ -282,7 +340,7 @@ namespace CPU_SCHEDULING.Models {
         }
         public static void LogProcessSchedule(List<Process> processes) {
             Console.WriteLine("\n - - - - - - - Timing Summary  - - - - - - -");
-            Console.WriteLine("P \tAT \tBT \tCT \tTAT \tWT \tResp. T");
+            Console.WriteLine("P \tAT \tBT \tCT \tTAT \tWT \tRsp. T");
             foreach(Process p in processes){
                 Console.WriteLine($"{p.Id} \t{p.ArrivalTime} \t{p.BurstTime} \t{p.CompletionTime} \t{p.TurnaroundTime} \t{p.WaitTime} \t{p.ResponseTime}");
             }
@@ -297,8 +355,9 @@ namespace CPU_SCHEDULING.Models {
             Console.WriteLine($"Total Processes Ran: {processes.Count}");
             Console.WriteLine($"Avg. Turnaround Time: {CalculateAvgTurnAroundTime(processes)}");
             Console.WriteLine($"Avg. Wait Time: {CalculateAvgWaitTime(processes)}");         
-            Console.WriteLine($"Avg. Turnaround Time: {CalculateAvgResponseTime(processes)}");
+            Console.WriteLine($"Avg. Response Time: {CalculateAvgResponseTime(processes)}");
             Console.WriteLine($"Total Time: {totalTime.ElapsedMilliseconds} ms");
+            Console.WriteLine($"Busy Time: {processes.Sum(p => p.BurstTime)}");
         }
     }
 }

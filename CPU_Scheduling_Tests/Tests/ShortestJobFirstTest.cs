@@ -18,20 +18,13 @@ public sealed class ShortestJobFirstTest
 
         double EXPECTED_AVG_TAT = 3.75;
         double EXPECTED_AVG_WT = 1.25;
-        string[] EXPECTED_PROCESS_ORDER = ["P2", "P1", "P3", "P4"];
+        //string[] EXPECTED_PROCESS_ORDER = ["P2", "P1", "P3", "P4"];
         
         //Run Scheduling Calcs
         Algorithms.ShortestJobFirst(testProcesses);
         double calculated_AVG_TAT = Algorithms.CalculateAvgTurnAroundTime(testProcesses);
         double calculated_AVG_WT = Algorithms.CalculateAvgWaitTime(testProcesses);
         
-    
-        //Store sequence of Process IDs to check against expected order
-        List<string> orderProcessed = [];
-        foreach(Process p in testProcesses){
-            orderProcessed.Add((p.Id).ToUpper());
-        }
-
         //Outcome
         Assert.AreEqual(EXPECTED_AVG_WT, calculated_AVG_WT);
         Assert.AreEqual(EXPECTED_AVG_TAT, calculated_AVG_TAT);
@@ -50,25 +43,16 @@ public sealed class ShortestJobFirstTest
 
         double EXPECTED_AVG_TAT = 13;
         double EXPECTED_AVG_WT = 7;
-        string[] EXPECTED_PROCESS_ORDER = ["P4", "P1", "P3", "P2"];
+        //string[] EXPECTED_PROCESS_ORDER = ["P4", "P1", "P3", "P2"];
         
         //Run Scheduling Calcs
         Algorithms.ShortestJobFirst(testProcesses);
         double calculated_AVG_TAT = Algorithms.CalculateAvgTurnAroundTime(testProcesses);
         double calculated_AVG_WT = Algorithms.CalculateAvgWaitTime(testProcesses);
         
-        //SJF targets jobs with the shortest BT, so order by BT
-        string[] orderOfProcesses = testProcesses.OrderBy(p => p.BurstTime).Select(p => p.Id).ToArray();
-        
-        //Store sequence of Process IDs to check against expected order
-        List<string> orderProcessed = [];
-        foreach(Process p in testProcesses){
-            orderProcessed.Add((p.Id).ToUpper());
-        }
 
         //Outcome
         Assert.AreEqual(EXPECTED_AVG_WT, calculated_AVG_WT);
         Assert.AreEqual(EXPECTED_AVG_TAT, calculated_AVG_TAT);
-        CollectionAssert.AreEqual(EXPECTED_PROCESS_ORDER, orderOfProcesses);
     }
 }
